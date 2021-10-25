@@ -1,18 +1,21 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
-
-
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('users')
 export class UserEntity {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    email!: string
+  @Column()
+  email!: string;
 
-    @Column()
-    password!: string
+  @Column()
+  password!: string;
 
-    @CreateDateColumn()
-    isCreate: Date
+  @CreateDateColumn()
+  isCreate: Date;
 }
