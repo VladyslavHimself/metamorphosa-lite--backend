@@ -6,6 +6,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix(process.env.URL_API);
+  app.enableCors()
 
   const document = SwaggerModule.createDocument(
     app,
