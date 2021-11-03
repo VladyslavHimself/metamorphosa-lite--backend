@@ -13,7 +13,7 @@ async function bootstrap() {
     new DocumentBuilder()
       .setTitle('Metamorphosa')
       .setDescription('This REST API docs Metamorphosa')
-      .setVersion('1.0.0')
+      .setVersion('1.0.1')
       .build(),
   );
   SwaggerModule.setup(process.env.URL_API_DOCS, app, document);
