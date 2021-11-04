@@ -1,12 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class ExcerciseDto{
     @ApiProperty({example: 'Leg extension', description: "Name for Excercise"})
+    @IsString()
     @IsNotEmpty()
     readonly name: string;
 
-    @ApiProperty({example: 6, description: "Sets"})
+    @ApiProperty({example: 6, description: "Sets", required: false})
     @IsNumber()
     readonly sets: number
 
@@ -15,7 +16,7 @@ export class ExcerciseDto{
     @IsNumber()
     readonly reps: number
 
-    @ApiProperty({example: 32, description: "Weight Default 0"})
+    @ApiProperty({example: 32, description: "Weight Default 0", required: false})
     @IsNumber()
     readonly weight: number
 

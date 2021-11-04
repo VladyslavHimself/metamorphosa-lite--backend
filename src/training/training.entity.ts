@@ -12,6 +12,7 @@ import {
   
   @Entity('trainings')
   export class TrainingEntity {
+    @ApiProperty({example: '42', description: "id training"})
     @PrimaryGeneratedColumn()
     id: number;
 

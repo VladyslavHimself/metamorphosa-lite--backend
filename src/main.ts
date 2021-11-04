@@ -9,16 +9,17 @@ async function bootstrap() {
   app.enableCors()
 
   const document = SwaggerModule.createDocument(
-    app,
-    new DocumentBuilder()
+    app, new DocumentBuilder()
       .setTitle('Metamorphosa')
       .setDescription('This REST API docs Metamorphosa')
-      .setVersion('1.0.1')
-      .build(),
+      .setVersion('1.0.2')
+      .addBearerAuth()
+      .build()
   );
   SwaggerModule.setup(process.env.URL_API_DOCS, app, document);
 
   await app.listen(process.env.PORT || 5000);
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 
 bootstrap();

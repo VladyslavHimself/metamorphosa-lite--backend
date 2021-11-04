@@ -6,7 +6,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiProperty, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { isObject } from 'class-validator';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
@@ -21,20 +21,20 @@ export class AuthController {
   @ApiResponse({ status: 201, type: UserEntity })
   @UsePipes(new ValidationPipe())
   @Post('registration')
-  create(@Body() body: AuthDto) {
-    const user = this.authService.findUser(body.email);
+  async create(@Body() body: AuthDto): Promise<UserEntity> {
+    const user = await this.authService.findUser(body.email);
     if (!isObject(user)) {
       throw new UnauthorizedException('user on db');
     }
-    return this.authService.createUser(body);
+    return await this.authService.createUser(body);
   }
 
   @ApiOperation({ summary: 'Login' })
-  @ApiResponse({ status: 200 })
+  @ApiResponse({ status: 200, description: 'back acces token'})
   @UsePipes(new ValidationPipe())
   @Post('login')
   async login(@Body() { email, password }: AuthDto) {
     const user = await this.authService.validateUser(email, password);
-    return this.authService.login(user.email, user.id);
+    return await this.authService.login(user.email, user.id);
   }
 }
