@@ -26,7 +26,7 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. -->
 
-##Documentation
+## Documentation
 - [Swagger UI](https://meta.mcteaparty.fun/api/docs/)
 
 
