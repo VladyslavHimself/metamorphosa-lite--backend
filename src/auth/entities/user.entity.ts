@@ -19,7 +19,7 @@ export class UserEntity {
   @Column()
   email!: string;
 
-  @ApiProperty({example: "1234567", description: "user password"})
+  @ApiProperty({example: "12345678", description: "user password"})
   @Column()
   password!: string;
 

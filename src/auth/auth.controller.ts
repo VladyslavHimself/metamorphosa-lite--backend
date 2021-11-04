@@ -23,7 +23,7 @@ export class AuthController {
   @Post('registration')
   async create(@Body() body: AuthDto): Promise<UserEntity> {
     const user = await this.authService.findUser(body.email);
-    if (!isObject(user)) {
+    if (isObject(user)) {
       throw new UnauthorizedException('user on db');
     }
     return await this.authService.createUser(body);
