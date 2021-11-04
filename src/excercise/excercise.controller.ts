@@ -1,10 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { GetUserId } from 'src/auth/decorators/get-user-id.decorator';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { ExcerciseDto } from './dto/excercise.dto';
 import { ExcerciseEntity } from './entities/excercise.entity';
 import { ExcerciseService } from './excercise.service';
 
 @ApiTags('Excercise')
+@UseGuards(JwtAuthGuard)
 @Controller('excercises')
 export class ExcerciseController {
     constructor(
@@ -19,8 +22,8 @@ export class ExcerciseController {
 
     @Post(':id')
     @UsePipes(new ValidationPipe())
-    async create(@Body() body: ExcerciseDto, @Param('id') id: number): Promise<ExcerciseEntity> {
-        Object.assign(body, {training: {id}})
+    async create(@Body() body: ExcerciseDto, @Param('id') id: number, @GetUserId() userId: number): Promise<ExcerciseEntity> {
+        Object.assign(body, {training: {id}, user: {id: userId}})
         return await this.excerciseService.create(body)
     }
 

@@ -40,8 +40,8 @@ export class AuthService {
     return { id: user.id, email: user.email };
   }
 
-  async login(email: string) {
-    const payload = { email };
+  async login(email: string, id: number) {
+    const payload = { id, email };
     return { token: await this.jwtService.signAsync(payload) };
   }
 }
