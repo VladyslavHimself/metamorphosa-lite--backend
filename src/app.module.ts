@@ -11,7 +11,7 @@ import { TrainingModule } from './training/training.module';
     TypeOrmModule.forRoot(),
     AuthModule,
     TrainingModule,
-    ExcerciseModule
+    ExcerciseModule,
   ],
 })
 export class AppModule {}

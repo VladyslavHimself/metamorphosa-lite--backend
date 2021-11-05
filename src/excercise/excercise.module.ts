@@ -6,9 +6,9 @@ import { ExcerciseController } from './excercise.controller';
 import { ExcerciseService } from './excercise.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([ExcerciseEntity, MuscleTypeEntity])],
-    providers: [ExcerciseService],
-    controllers: [ExcerciseController],
-    exports: [ExcerciseService]
+  imports: [TypeOrmModule.forFeature([ExcerciseEntity, MuscleTypeEntity])],
+  providers: [ExcerciseService],
+  controllers: [ExcerciseController],
+  exports: [ExcerciseService],
 })
 export class ExcerciseModule {}

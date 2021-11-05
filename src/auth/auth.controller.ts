@@ -6,7 +6,13 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiProperty, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiParam,
+  ApiProperty,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { isObject } from 'class-validator';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
@@ -30,7 +36,7 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: 'Login' })
-  @ApiResponse({ status: 200, description: 'back acces token'})
+  @ApiResponse({ status: 200, description: 'back acces token' })
   @UsePipes(new ValidationPipe())
   @Post('login')
   async login(@Body() { email, password }: AuthDto) {

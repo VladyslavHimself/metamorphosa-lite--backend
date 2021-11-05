@@ -13,7 +13,7 @@ export class JwtStratagy extends PassportStrategy(Strategy) {
       secretOrKey: new ConfigService().get('JWT_SECRET'),
     });
   }
-  async validate({ id}: Pick<UserEntity, 'id'>) {
+  async validate({ id }: Pick<UserEntity, 'id'>) {
     return id;
   }
 }

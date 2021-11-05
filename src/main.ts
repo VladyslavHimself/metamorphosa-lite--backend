@@ -6,15 +6,16 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix(process.env.URL_API);
-  app.enableCors()
+  app.enableCors();
 
   const document = SwaggerModule.createDocument(
-    app, new DocumentBuilder()
+    app,
+    new DocumentBuilder()
       .setTitle('Metamorphosa')
       .setDescription('This REST API docs Metamorphosa')
       .setVersion('1.0.2')
       .addBearerAuth()
-      .build()
+      .build(),
   );
   SwaggerModule.setup(process.env.URL_API_DOCS, app, document);
 
