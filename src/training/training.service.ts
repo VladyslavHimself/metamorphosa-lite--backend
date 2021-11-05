@@ -19,7 +19,7 @@ export class TrainingService {
     //   throw new HttpException('Нельзя Завтра приходи)', HttpStatus.UNPROCESSABLE_ENTITY);
     // }
     const training = await this.trainingRepository.save({user: {id: userId}})
-
+    console.log(excercises.excercises)
     if (excercises.excercises.length) {
       excercises.excercises.map( async excercise => 
         await this.excerciseService.create(Object.assign(
@@ -33,9 +33,11 @@ export class TrainingService {
     return await this.trainingRepository.delete(id)
   }
 
-  async getTrainings(index: number, userId: number): Promise<TrainingEntity[]> {
-    const take = 30 * index;
-    const skip = take - 30;
+  async getTrainings(
+    userId: number,
+    take: number,
+    skip: number
+    ): Promise<TrainingEntity[]> {
     return await this.trainingRepository.find({
       where: [ {user: { id: userId }}],
       order: { id: 'DESC' },
