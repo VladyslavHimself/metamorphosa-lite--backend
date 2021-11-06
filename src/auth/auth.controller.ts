@@ -28,6 +28,7 @@ export class AuthController {
   @UsePipes(new ValidationPipe())
   @Post('registration')
   async create(@Body() body: AuthDto): Promise<UserEntity> {
+    body.email = body.email.toLowerCase()
     const user = await this.authService.findUser(body.email);
     if (isObject(user)) {
       throw new UnauthorizedException('user on db');
@@ -40,6 +41,7 @@ export class AuthController {
   @UsePipes(new ValidationPipe())
   @Post('login')
   async login(@Body() { email, password }: AuthDto) {
+    email = email.toLowerCase()
     const user = await this.authService.validateUser(email, password);
     return await this.authService.login(user.email, user.id);
   }
