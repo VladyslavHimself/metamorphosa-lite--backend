@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ExcerciseEntity } from 'src/excercise/entities/excercise.entity';
+import { PatternEntity } from 'src/pattern/pattern.entity';
 import { TrainingEntity } from 'src/training/training.entity';
 import {
   Column,
@@ -35,4 +36,7 @@ export class UserEntity {
 
   @OneToMany(() => ExcerciseEntity, (excercise) => excercise.user)
   excercises: ExcerciseEntity[];
+
+  @OneToMany(() => PatternEntity, (pattern) => pattern.user)
+  patterns: PatternEntity[];
 }
