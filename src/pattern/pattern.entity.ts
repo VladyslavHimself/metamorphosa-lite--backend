@@ -17,7 +17,10 @@ export class PatternEntity {
   @Column({ nullable: true, select: false })
   topic: string;
 
-  @ApiProperty({ example: '{"name": "namePattern", "anyParams": 24}', description: 'name pattern' })
+  @ApiProperty({
+    example: '{"name": "namePattern", "anyParams": 24}',
+    description: 'name pattern',
+  })
   @Column({ type: 'json' })
   body: {};
 
