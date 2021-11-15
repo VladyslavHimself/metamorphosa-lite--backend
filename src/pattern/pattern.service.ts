@@ -20,6 +20,10 @@ export class PatternService {
     });
   }
 
+  async getPatternById(id: number): Promise<PatternEntity> {
+    return await this.patternRepository.findOne({ id });
+  }
+
   async createPattern(
     topic: string,
     body: {},

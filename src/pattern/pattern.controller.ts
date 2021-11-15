@@ -23,9 +23,21 @@ import { PatternService } from './pattern.service';
 @ApiBearerAuth()
 @ApiTags('Patterns')
 @UseGuards(JwtAuthGuard)
-@Controller('patterns')
+@Controller()
 export class PatternController {
   constructor(private readonly patternService: PatternService) {}
+
+  @ApiOperation({ summary: 'Get pattern by id' })
+  @ApiParam({
+    name: 'id',
+    example: 6,
+    description: 'get pattern by id',
+  })
+  @ApiResponse({ status: 200, type: PatternEntity })
+  @Get('pattern/:id')
+  async getAllPatternById(@Param('id') id: number): Promise<PatternEntity> {
+    return await this.patternService.getPatternById(id);
+  }
 
   @ApiOperation({ summary: 'Get user patterns' })
   @ApiParam({
@@ -34,7 +46,7 @@ export class PatternController {
     description: 'topic for pattern',
   })
   @ApiResponse({ status: 200, type: [PatternEntity] })
-  @Get(':topic')
+  @Get('patterns/:topic')
   async getAllPatterns(
     @Param('topic') topic: string,
     @GetUserId() userId: number,
@@ -52,7 +64,7 @@ export class PatternController {
     description: 'topic for pattern',
   })
   @ApiResponse({ status: 200, type: PatternEntity })
-  @Post(':topic')
+  @Post('patterns/:topic')
   async createPattern(
     @Param('topic') topic: string,
     @Body() body: {},
@@ -68,7 +80,7 @@ export class PatternController {
   @ApiOperation({ summary: 'Edit pattern by id' })
   @ApiParam({ name: 'id', example: 8, description: 'id for pattern' })
   @ApiResponse({ status: 200, type: PatternEntity })
-  @Put(':id')
+  @Put('patterns/:id')
   async editPattern(
     @Param('id') id: number,
     @Body() body: {},
@@ -79,7 +91,7 @@ export class PatternController {
 
   @ApiOperation({ summary: 'Delete pattern by id' })
   @ApiParam({ name: 'id', example: 8, description: 'id for pattern' })
-  @Delete(':id')
+  @Delete('patterns/:id')
   async deletePattern(@Param('id') id: number, @GetUserId() userId: number) {
     return await this.patternService.deleteById(id, userId);
   }
