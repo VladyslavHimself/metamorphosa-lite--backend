@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ExcerciseDto } from './dto/excercise.dto';
 import { ExcerciseEntity } from './entities/excercise.entity';
-import { MuscleTypeEntity } from './entities/muscleType.entity';
+// import { MuscleTypeEntity } from './entities/muscleType.entity';
 
 @Injectable()
 export class ExcerciseService {
@@ -11,8 +11,8 @@ export class ExcerciseService {
     @InjectRepository(ExcerciseEntity)
     private readonly excerciseRepository: Repository<ExcerciseEntity>,
 
-    @InjectRepository(MuscleTypeEntity)
-    private readonly muscleTypeRepository: Repository<MuscleTypeEntity>,
+    // @InjectRepository(MuscleTypeEntity)
+    // private readonly muscleTypeRepository: Repository<MuscleTypeEntity>,
   ) {}
 
   async create(body): Promise<ExcerciseEntity> {
