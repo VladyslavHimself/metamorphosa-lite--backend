@@ -9,7 +9,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Update & reload
         uses: fifsky/ssh-action@master
         with:
@@ -23,4 +22,3 @@ jobs:
             npm run build
             npm run prune --production
             sudo systemctl restart metamorphosa-lite--backend.service
-            sudo systemctl status metamorphosa-lite--backend.service
