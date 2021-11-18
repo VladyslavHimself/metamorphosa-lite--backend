@@ -1,0 +1,51 @@
+name: Build test & Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test_build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        user: actions/checkout@v2
+
+      - name: Set up NodeJS 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+        
+      - name: Install new node package
+        run: npm install
+
+      - name: Build app
+        run: npm run build
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test_build
+    steps:
+      - name: Update & Reload
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.host }}
+          username: ${{ secrets.user }}
+          key: ${{ secrets.key }}
+          port: 22
+          script: |
+            cd metamorphosa-lite--backend
+
+            #Update last 
+            git pull
+
+            #Install new node package
+            npm install
+
+            #Build app
+            npm run build
+
+            #Start app
+            sudo systemctl restart metamorphosa-lite--backend.service
