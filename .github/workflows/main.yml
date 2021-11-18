@@ -6,27 +6,27 @@ on:
       - main
 
 jobs:
-  test_build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout main
-        user: actions/checkout@v2
+  # test_build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout main
+  #       user: actions/checkout@v2
 
-      - name: Set up NodeJS 14
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+  #     - name: Set up NodeJS 14
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '14'
         
-      - name: Install new node package
-        run: npm install
+  #     - name: Install new node package
+  #       run: npm install
 
-      - name: Build app
-        run: npm run build
+  #     - name: Build app
+  #       run: npm run build
 
 
   deploy:
     runs-on: ubuntu-latest
-    needs: test_build
+    # needs: test_build
     steps:
       - name: Update & Reload
         uses: appleboy/ssh-action@master
