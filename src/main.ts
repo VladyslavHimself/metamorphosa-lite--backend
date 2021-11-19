@@ -2,10 +2,12 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix(process.env.URL_API);
+  app.use(cookieParser());
   app.enableCors();
 
   const document = SwaggerModule.createDocument(
@@ -13,7 +15,7 @@ async function bootstrap() {
     new DocumentBuilder()
       .setTitle('Metamorphosa')
       .setDescription('This REST API docs Metamorphosa')
-      .setVersion('1.0.2')
+      .setVersion('1.1.2')
       .addBearerAuth()
       .build(),
   );
