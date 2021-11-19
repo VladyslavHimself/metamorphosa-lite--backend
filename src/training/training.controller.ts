@@ -51,7 +51,6 @@ export class TrainingController {
     @Query('take') take,
     @Query('skip') skip,
   ): Promise<TrainingEntity[]> {
-    console.log(take, skip);
     if (take === undefined) {
       take = 30;
     }

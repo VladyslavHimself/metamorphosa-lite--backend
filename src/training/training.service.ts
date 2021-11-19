@@ -25,7 +25,6 @@ export class TrainingService {
     const training = await this.trainingRepository.save({
       user: { id: userId },
     });
-    console.log(excercises.excercises);
     if (excercises.excercises.length) {
       excercises.excercises.map(
         async (excercise) =>
