@@ -15,14 +15,14 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { GetUserId } from 'src/auth/decorators/get-user-id.decorator';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { AuthGuard } from 'src/user/auth.guard';
+import { User } from 'src/user/user.decorator';
 import { PatternEntity } from './pattern.entity';
 import { PatternService } from './pattern.service';
 
 @ApiBearerAuth()
 @ApiTags('Patterns')
-@UseGuards(JwtAuthGuard)
+@UseGuards(AuthGuard)
 @Controller()
 export class PatternController {
   constructor(private readonly patternService: PatternService) {}
@@ -49,7 +49,7 @@ export class PatternController {
   @Get('patterns/:topic')
   async getAllPatterns(
     @Param('topic') topic: string,
-    @GetUserId() userId: number,
+    @User('id') userId: number,
   ): Promise<PatternEntity[]> {
     return await this.patternService.getAllPatterns(
       topic.toLowerCase(),
@@ -68,7 +68,7 @@ export class PatternController {
   async createPattern(
     @Param('topic') topic: string,
     @Body() body: {},
-    @GetUserId() userId: number,
+    @User('id') userId: number,
   ): Promise<PatternEntity> {
     return await this.patternService.createPattern(
       topic.toLowerCase(),
@@ -84,7 +84,7 @@ export class PatternController {
   async editPattern(
     @Param('id') id: number,
     @Body() body: {},
-    @GetUserId() userId: number,
+    @User('id') userId: number,
   ): Promise<any> {
     return await this.patternService.editPattern(id, body, userId);
   }
@@ -92,7 +92,7 @@ export class PatternController {
   @ApiOperation({ summary: 'Delete pattern by id' })
   @ApiParam({ name: 'id', example: 8, description: 'id for pattern' })
   @Delete('patterns/:id')
-  async deletePattern(@Param('id') id: number, @GetUserId() userId: number) {
+  async deletePattern(@Param('id') id: number, @User('id') userId: number) {
     return await this.patternService.deleteById(id, userId);
   }
 }

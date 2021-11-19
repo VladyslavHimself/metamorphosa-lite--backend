@@ -18,15 +18,15 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { GetUserId } from 'src/auth/decorators/get-user-id.decorator';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { ExcerciseDto } from 'src/excercise/dto/excercise.dto';
+import { AuthGuard } from 'src/user/auth.guard';
+import { User } from 'src/user/user.decorator';
 import { TrainingEntity } from './training.entity';
 import { TrainingService } from './training.service';
 
 @ApiTags('Trainings')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(AuthGuard)
 @Controller('trainings')
 export class TrainingController {
   constructor(private readonly trainingService: TrainingService) {}
@@ -47,7 +47,7 @@ export class TrainingController {
   @ApiResponse({ status: 200, type: [TrainingEntity] })
   @Get()
   async getFistList(
-    @GetUserId() userId: number,
+    @User('id') userId: number,
     @Query('take') take,
     @Query('skip') skip,
   ): Promise<TrainingEntity[]> {
@@ -66,7 +66,7 @@ export class TrainingController {
   @Get(':index')
   async getListByIndex(
     @Param('index') index: number,
-    @GetUserId() userId: number,
+    @User('id') userId: number,
   ): Promise<TrainingEntity[]> {
     const take = 30 * index;
     const skip = take - 30;
@@ -79,7 +79,7 @@ export class TrainingController {
   @Post()
   create(
     @Body() body: ExcerciseDto[],
-    @GetUserId() id: number,
+    @User('id') id: number,
   ): Promise<TrainingEntity> {
     return this.trainingService.create(body, id);
   }

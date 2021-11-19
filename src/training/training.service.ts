@@ -1,9 +1,5 @@
 import {
-  HttpCode,
-  HttpException,
-  HttpStatus,
   Injectable,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ExcerciseService } from 'src/excercise/excercise.service';
@@ -18,7 +14,7 @@ export class TrainingService {
     private readonly excerciseService: ExcerciseService,
   ) {}
 
-  async create(excercises, userId: number) {
+  async create(excercises, userId: number): Promise<TrainingEntity> {
     // if (await this.isRegistrationTrainingCreatedToday(userId)) {
     //   throw new HttpException('Нельзя Завтра приходи)', HttpStatus.UNPROCESSABLE_ENTITY);
     // }

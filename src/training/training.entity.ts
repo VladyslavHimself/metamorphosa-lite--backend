@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { UserEntity } from 'src/auth/entities/user.entity';
 import { ExcerciseEntity } from 'src/excercise/entities/excercise.entity';
+import { UserEntity } from 'src/user/user.entity';
 import {
-  Column,
   CreateDateColumn,
   Entity,
   ManyToOne,

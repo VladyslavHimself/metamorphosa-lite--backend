@@ -9,10 +9,7 @@ import { ExcerciseEntity } from './entities/excercise.entity';
 export class ExcerciseService {
   constructor(
     @InjectRepository(ExcerciseEntity)
-    private readonly excerciseRepository: Repository<ExcerciseEntity>,
-
-    // @InjectRepository(MuscleTypeEntity)
-    // private readonly muscleTypeRepository: Repository<MuscleTypeEntity>,
+    private readonly excerciseRepository: Repository<ExcerciseEntity>, // @InjectRepository(MuscleTypeEntity) // private readonly muscleTypeRepository: Repository<MuscleTypeEntity>,
   ) {}
 
   async create(body): Promise<ExcerciseEntity> {

@@ -1,13 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { UserEntity } from 'src/auth/entities/user.entity';
 import { TrainingEntity } from 'src/training/training.entity';
-import { json } from 'stream/consumers';
+import { UserEntity } from 'src/user/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -32,9 +30,12 @@ export class ExcerciseEntity {
   @Column({ default: 0 })
   weight: number;
 
-  @ApiProperty({ example: ["Legs", "Biceps", "Back"], description: 'Muscle types' })
-  @Column({ type: 'json', default: []})
-  muscleTypes: []
+  @ApiProperty({
+    example: ['Legs', 'Biceps', 'Back'],
+    description: 'Muscle types',
+  })
+  @Column({ type: 'json', default: [] })
+  muscleTypes: [];
 
   @ManyToOne(() => UserEntity, (user) => user.excercises)
   user: UserEntity;

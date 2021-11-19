@@ -16,15 +16,15 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { GetUserId } from 'src/auth/decorators/get-user-id.decorator';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { AuthGuard } from 'src/user/auth.guard';
+import { User } from 'src/user/user.decorator';
 import { ExcerciseDto } from './dto/excercise.dto';
 import { ExcerciseEntity } from './entities/excercise.entity';
 import { ExcerciseService } from './excercise.service';
 
 @ApiBearerAuth()
 @ApiTags('Excercise')
-@UseGuards(JwtAuthGuard)
+@UseGuards(AuthGuard)
 @Controller('excercises')
 export class ExcerciseController {
   constructor(private readonly excerciseService: ExcerciseService) {}
@@ -45,7 +45,7 @@ export class ExcerciseController {
   async create(
     @Body() body: ExcerciseDto,
     @Param('id') id: number,
-    @GetUserId() userId: number,
+    @User('id') userId: number,
   ): Promise<ExcerciseEntity> {
     Object.assign(body, { training: { id }, user: { id: userId } });
     return await this.excerciseService.create(body);
