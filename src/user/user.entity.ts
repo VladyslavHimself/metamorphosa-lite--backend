@@ -24,7 +24,10 @@ export class UserEntity {
   @Column()
   password: string;
 
-  @ApiProperty({ example: 'eyJhbGci6IkpXVCJ9.eyJpZCI6NjE2Mzk4OTMxOTZ9.FQEGC8HI6Vmc', description: 'this user refresh token' })
+  @ApiProperty({
+    example: 'eyJhbGci6IkpXVCJ9.eyJpZCI6NjE2Mzk4OTMxOTZ9.FQEGC8HI6Vmc',
+    description: 'this user refresh token',
+  })
   @Column({ default: '' })
   token: string;
 

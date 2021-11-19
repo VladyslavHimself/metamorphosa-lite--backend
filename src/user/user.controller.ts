@@ -34,7 +34,12 @@ export class UserController {
   }
 
   @ApiOperation({ summary: 'Login' })
-  @ApiResponse({ status: 200, description: 'get new access token. Access token life in 30 minuts, Refresh token set http-only cookie', type: TokensDto })
+  @ApiResponse({
+    status: 200,
+    description:
+      'get new access token. Access token life in 30 minuts, Refresh token set http-only cookie',
+    type: TokensDto,
+  })
   @UsePipes(new ValidationPipe())
   @Post('login')
   async login(

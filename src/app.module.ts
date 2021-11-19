@@ -21,7 +21,7 @@ export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(UserMiddleware).forRoutes({
       path: '*',
-      method: RequestMethod.ALL
-    })
+      method: RequestMethod.ALL,
+    });
   }
 }
