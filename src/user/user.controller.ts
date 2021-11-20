@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Post,
   Req,
   Res,
@@ -56,7 +58,7 @@ export class UserController {
     return tokens;
   }
 
-  @ApiOperation({ summary: 'Refresh' })
+  @ApiOperation({ summary: 'Refresh - Get new access token' })
   @ApiResponse({ status: 200, description: 'back acces token' })
   @Get('refresh')
   async refresh(@Req() request: Request): Promise<Object> {
@@ -65,5 +67,24 @@ export class UserController {
       throw new UnauthorizedException('missing refresh token');
     }
     return { accessToken: await this.userService.refresh(refreshToken) };
+  }
+
+  @ApiOperation({ summary: 'Logout - delete refresh token in cookies' })
+  @ApiResponse({
+    status: 200,
+    description: 'refresh token deleted successfully',
+  })
+  @ApiResponse({ status: 410, description: 'missing refresh token' })
+  @Get('logout')
+  async logout(
+    @Res({ passthrough: true }) response: Response,
+    @Req() request: Request,
+  ) {
+    if (request.cookies['refreshToken'].length) {
+      response.clearCookie('refreshToken');
+      return { message: 'refresh token deleted successfully' };
+    } else {
+      throw new HttpException('missing refresh token', HttpStatus.GONE);
+    }
   }
 }
