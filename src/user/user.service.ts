@@ -55,9 +55,9 @@ export class UserService {
       throw new UnauthorizedException('invalid refresh token');
     }
     const user = await this.userRepository.findOne({ token: refreshToken });
-    if (!user) {
-      throw new UnauthorizedException('refresh token does not match the base');
-    }
+    // if (!user) {
+    //   throw new UnauthorizedException('refresh token does not match the base');
+    // }
     const payload = { id: user.id, email: user.email };
     return this.generateJWT(payload, process.env.JWT_ACCESS_SECRET, '30m');
   }
