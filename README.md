@@ -26,8 +26,9 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. -->
 
-## Documentation
-- [Swagger UI](https://meta.mcteaparty.fun/api/docs/)
+## Links
+- [Web Site](https://metamorphosa.site)
+- [Swagger Documentation](https://metamorphosa.site/api/docs/)
 
 
 ## Installation
